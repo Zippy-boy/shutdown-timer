@@ -200,10 +200,10 @@ span {
   background: #171721;
   border-radius: 1rem;
   padding: 1.2rem;
-  margin-top: 1.4rem;
-  ;
+  margin-top: 1.4rem;;
   overflow: auto;
   box-shadow: inset 0 0 10px #000;
+  width: 100%;
 }
 
 .selectButton {
@@ -252,4 +252,94 @@ input {
 #enter {
   width: 100%;
   border: none;
+}
+
+#loadingBar {
+  width: 100%;
+  border: red 1px solid;
+  height: 1rem;
+}
+
+.progress-bar {
+  background-color: var(--acent-color);
+  height: 30px;
+  width: 0%;
+  border-radius: 20px;
+  position: relative;
+  overflow: show;
+  padding: 0;
+}
+
+.progress-bar::before {
+  content: "";
+  background-color: #171721;
+  height: 2px;
+  width: 100%;
+  border-radius: 2px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.progress-bar {
+  -webkit-transition: width 0.5s linear;
+  -moz-transition: width 0.5s linear;
+  -o-transition: width 0.5s linear;
+  transition: width 0.5s linear;
+}
+
+.progress-bar::before {
+  -webkit-transition: width 0.5s linear;
+  -moz-transition: width 0.5s linear;
+  -o-transition: width 0.5s linear;
+  transition: width 0.5s linear;
+}
+
+.progress-bar.active {
+  width: 100%;
+}
+
+.progress-bar.active::before {
+  width: 100%;
+}
+
+.progress-bar.indeterminate {
+  -webkit-animation: progress-bar-indeterminate 2s linear infinite;
+  animation: progress-bar-indeterminate 2s linear infinite;
+}
+
+@keyframes progress-bar-indeterminate {
+  0% {
+    width: 0%;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+@keyframes progress-bar-fill {
+  0% {
+    width: 0%;
+  }
+
+  100% {
+    width: 100%;
+  }
+}
+
+#someData {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 0.6rem 0;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+
+}
+
+.getOnTop {
+  display: grid;
+  /* center */
+  place-items: center;
 }

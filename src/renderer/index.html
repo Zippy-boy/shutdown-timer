@@ -21,70 +21,154 @@
         <div class="line"></div>
         <div class="main">
             <div class="container" id="topContainer">
-                <button class="selectButton">Till time</button>
-                <button class="selectButton">At time</button>
+                <button class="selectButton" id="tillTime"
+                    onclick="tillTimeframe()">Till
+                    time</button>
+                <button class="selectButton" id="atTime"
+                    onclick="atTimeframe()">At
+                    time</button>
             </div>
 
-            <div class="container" id="bottom">
-                <!-- Enter button -->
-                <!-- <button class="button" id="enter" onclick="enter()">Enter</button> -->
-                <div class="splitContainer">
-                    <div class="title">Hours</div>
-                    <div class="controls">
-                        <span class="buttonContainer">
-                            <button class="splitButton" id="incrementHours">
-                                <span class="buttonText">+</span>
-                            </button>
-                        </span>
-                        <input class="splitAmount" id="hours" placeholder="0"
-                            type="number" onkeyup="HKeyUp()" />
-                        <span class="buttonContainer">
-                            <button class="splitButton" id="decrementHours">
-                                <span class="buttonText">-</span>
-                            </button>
-                        </span>
+            <div id="putItInMeTillISayCumOut" style="display: none;">
+                <div class="container" id="bottom">
+                    <!-- Enter button -->
+                    <!-- <button class="button" id="enter" onclick="enter()">Enter</button> -->
+                    <div class="splitContainer">
+                        <div class="title">Hours</div>
+                        <div class="controls">
+                            <span class="buttonContainer">
+                                <button class="splitButton" id="incrementHours">
+                                    <span class="buttonText">+</span>
+                                </button>
+                            </span>
+                            <input class="splitAmount" id="hours"
+                                placeholder="0" type="number"
+                                onkeyup="HKeyUp()" />
+                            <span class="buttonContainer">
+                                <button class="splitButton" id="decrementHours">
+                                    <span class="buttonText">-</span>
+                                </button>
+                            </span>
+                        </div>
                     </div>
-                </div>
-                <div class="verticalLine"></div>
-                <div class="splitContainer">
-                    <div class="title">Minutes</div>
-                    <div class="controls">
-                        <span class="buttonContainer">
-                            <button class="splitButton" id="incrementMinutes">
-                                <span class="buttonText">+</span>
-                            </button>
-                        </span>
-                        <input class="splitAmount" id="minutes" placeholder="0"
-                            type="number" onkeyup="MKeyUp()" />
-                        <span class="buttonContainer">
-                            <button class="splitButton" id="decrementMinutes">
-                                <span class="buttonText">-</span>
-                            </button>
-                        </span>
+                    <div class="verticalLine"></div>
+                    <div class="splitContainer">
+                        <div class="title">Minutes</div>
+                        <div class="controls">
+                            <span class="buttonContainer">
+                                <button class="splitButton"
+                                    id="incrementMinutes">
+                                    <span class="buttonText">+</span>
+                                </button>
+                            </span>
+                            <input class="splitAmount" id="minutes"
+                                placeholder="0" type="number"
+                                onkeyup="MKeyUp()" />
+                            <span class="buttonContainer">
+                                <button class="splitButton"
+                                    id="decrementMinutes">
+                                    <span class="buttonText">-</span>
+                                </button>
+                            </span>
+                        </div>
                     </div>
-                </div>
-                <div class="verticalLine"></div>
-                <div class="splitContainer">
-                    <div class="title">Seconds</div>
-                    <div class="controls">
-                        <span class="buttonContainer">
-                            <button class="splitButton" id="incrementSeconds">
-                                <span class="buttonText">+</span>
-                            </button>
-                        </span>
-                        <input class="splitAmount" id="seconds" placeholder="0"
-                            type="number" onkeyup="SKeyUp()" />
-                        <span class="buttonContainer">
-                            <button class="splitButton" id="decrementSeconds">
-                                <span class="buttonText">-</span>
-                            </button>
-                        </span>
+                    <div class="verticalLine"></div>
+                    <div class="splitContainer">
+                        <div class="title">Seconds</div>
+                        <div class="controls">
+                            <span class="buttonContainer">
+                                <button class="splitButton"
+                                    id="incrementSeconds">
+                                    <span class="buttonText">+</span>
+                                </button>
+                            </span>
+                            <input class="splitAmount" id="seconds"
+                                placeholder="0" type="number"
+                                onkeyup="SKeyUp()" />
+                            <span class="buttonContainer">
+                                <button class="splitButton"
+                                    id="decrementSeconds">
+                                    <span class="buttonText">-</span>
+                                </button>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <button class="button" id="enter"
-                onclick="shutdown()">Enter</button>
+            <div id="putItInMeAtTimeISay" style="display: none">
+                <div class="container" id="bottom">
+                    <!-- Enter button -->
+                    <!-- <button class="button" id="enter" onclick="enter()">Enter</button> -->
+                    <div class="splitContainer">
+                        <div class="title">Hour (24)</div>
+                        <div class="controls">
+                            <span class="buttonContainer">
+                                <button class="splitButton" id="incrementHour">
+                                    <span class="buttonText">+</span>
+                                </button>
+                            </span>
+                            <input class="splitAmount" id="hour" placeholder="0"
+                                type="number" onkeyup="HKeyUpAt()" />
+                            <span class="buttonContainer">
+                                <button class="splitButton" id="decrementHour">
+                                    <span class="buttonText">-</span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="verticalLine"></div>
+                    <div class="splitContainer">
+                        <div class="title">Minute (60)</div>
+                        <div class="controls">
+                            <span class="buttonContainer">
+                                <button class="splitButton"
+                                    id="incrementMinute">
+                                    <span class="buttonText">+</span>
+                                </button>
+                            </span>
+                            <input class="splitAmount" id="minute"
+                                placeholder="0" type="number"
+                                onkeyup="MKeyUpAt()" />
+                            <span class="buttonContainer">
+                                <button class="splitButton"
+                                    id="decrementMinute">
+                                    <span class="buttonText">-</span>
+                                </button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="putItInMeLoading" style="display: block;">
+                <div id="someData">
+                    <div class="getOnTop">
+                        <div class="title">Current Time</div>
+                        <span>10:12</span>
+                    </div>
+                    <div class="verticalLine"></div>
+                    <div class="getOnTop">
+                        <div class="title">Time Till Shutdown</div>
+                        <span>01:02:69</span>
+                    </div>
+                    <div class="verticalLine"></div>
+                    <div class="getOnTop">
+                        <div class="title">Shut Down Time</div>
+                        <span>11:11</span>
+                    </div>
+                </div>
+                <div class="container" id="bottom">
+                    <div class="resultContainer">
+                        <div class="progress-bar">
+                            <div class="progress-bar-fill"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="button" id="enter" onclick="shutdown()">
+                Enter</button>
         </div>
     </div>
     </div>
