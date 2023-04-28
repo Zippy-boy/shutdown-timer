@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+        href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500&display=swap"
+        rel="stylesheet" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <title>Shutdown Timer</title>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <div id="Tital">Shutdown Timer</div>
+        <div class="line"></div>
+        <div class="main">
+            <div class="container" id="topContainer">
+                <button class="selectButton">Till time</button>
+                <button class="selectButton">At time</button>
+            </div>
+
+            <div class="container" id="bottom">
+                <!-- Enter button -->
+                <!-- <button class="button" id="enter" onclick="enter()">Enter</button> -->
+                <div class="splitContainer">
+                    <div class="title">Hours</div>
+                    <div class="controls">
+                        <span class="buttonContainer">
+                            <button class="splitButton" id="incrementHours">
+                                <span class="buttonText">+</span>
+                            </button>
+                        </span>
+                        <input class="splitAmount" id="hours" placeholder="0"
+                            type="number" onkeyup="HKeyUp()" />
+                        <span class="buttonContainer">
+                            <button class="splitButton" id="decrementHours">
+                                <span class="buttonText">-</span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <div class="verticalLine"></div>
+                <div class="splitContainer">
+                    <div class="title">Minutes</div>
+                    <div class="controls">
+                        <span class="buttonContainer">
+                            <button class="splitButton" id="incrementMinutes">
+                                <span class="buttonText">+</span>
+                            </button>
+                        </span>
+                        <input class="splitAmount" id="minutes" placeholder="0"
+                            type="number" onkeyup="MKeyUp()" />
+                        <span class="buttonContainer">
+                            <button class="splitButton" id="decrementMinutes">
+                                <span class="buttonText">-</span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+                <div class="verticalLine"></div>
+                <div class="splitContainer">
+                    <div class="title">Seconds</div>
+                    <div class="controls">
+                        <span class="buttonContainer">
+                            <button class="splitButton" id="incrementSeconds">
+                                <span class="buttonText">+</span>
+                            </button>
+                        </span>
+                        <input class="splitAmount" id="seconds" placeholder="0"
+                            type="number" onkeyup="SKeyUp()" />
+                        <span class="buttonContainer">
+                            <button class="splitButton" id="decrementSeconds">
+                                <span class="buttonText">-</span>
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <button class="button" id="enter"
+                onclick="shutdown()">Enter</button>
+        </div>
+    </div>
+    </div>
+    <script type="text/javascript" src="script.js"></script>
+</body>
+
+</html>

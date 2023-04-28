@@ -1,0 +1,57 @@
+<div class="container" id="bottom">
+    <!-- Enter button -->
+    <!-- <button class="button" id="enter" onclick="enter()">Enter</button> -->
+    <div class="splitContainer">
+        <div class="title">Hours</div>
+        <div class="controls">
+            <span class="buttonContainer">
+                <button class="splitButton" id="incrementHours">
+                    <span class="buttonText">+</span>
+                </button>
+            </span>
+            <input class="splitAmount" id="hours" placeholder="0" type="number"
+                onkeyup="HKeyUp()" />
+            <span class="buttonContainer">
+                <button class="splitButton" id="decrementHours">
+                    <span class="buttonText">-</span>
+                </button>
+            </span>
+        </div>
+    </div>
+    <div class="verticalLine"></div>
+    <div class="splitContainer">
+        <div class="title">Minutes</div>
+        <div class="controls">
+            <span class="buttonContainer">
+                <button class="splitButton" id="incrementMinutes">
+                    <span class="buttonText">+</span>
+                </button>
+            </span>
+            <input class="splitAmount" id="minutes" placeholder="0"
+                type="number" onkeyup="MKeyUp()" />
+            <span class="buttonContainer">
+                <button class="splitButton" id="decrementMinutes">
+                    <span class="buttonText">-</span>
+                </button>
+            </span>
+        </div>
+    </div>
+    <div class="verticalLine"></div>
+    <div class="splitContainer">
+        <div class="title">Seconds</div>
+        <div class="controls">
+            <span class="buttonContainer">
+                <button class="splitButton" id="incrementSeconds">
+                    <span class="buttonText">+</span>
+                </button>
+            </span>
+            <input class="splitAmount" id="seconds" placeholder="0"
+                type="number" onkeyup="SKeyUp()" />
+            <span class="buttonContainer">
+                <button class="splitButton" id="decrementSeconds">
+                    <span class="buttonText">-</span>
+                </button>
+            </span>
+        </div>
+    </div>
+</div>
