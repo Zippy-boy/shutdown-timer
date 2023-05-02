@@ -35,6 +35,11 @@ const minutesIncrementAt = document.getElementById('incrementMinute');
 const hoursDecrementAt = document.getElementById('decrementHour');
 const minutesDecrementAt = document.getElementById('decrementMinute');
 
+// Loading
+
+const currentTime = document.getElementById('currentTime');
+const timeTill = document.getElementById('timeTill');
+const shutDownTime = document.getElementById('shutDownTime');
 
 // Till Time
 
@@ -169,8 +174,9 @@ async function shutdown() {
     atTimeButton.style.display = 'none';
     tillTimeButton.style.display = 'none';
     enterButton.style.display = 'none';
-    
-    let active = "loading";
+
+    let totalSeconds = 0;
+    console.log({ active })
 
     if (active == "tillTime") {
         let hoursValue = hours.value;
@@ -182,6 +188,8 @@ async function shutdown() {
         if (secondsValue == null || secondsValue == undefined || secondsValue == '') { secondsValue = 0; }
         totalSeconds = (hoursValue * 60 * 60) + (minutesValue * 60) + secondsValue;
         console.log(totalSeconds);
+        await shutdownBack(totalSeconds);
+
     } else if (active == "atTime") {
         const now = Date.now();
         console.log(now);
@@ -195,47 +203,114 @@ async function shutdown() {
         let timeInseconds = new Date().getTime() / 1000;
         let timeInsecondsFrom = new Date().setHours(hoursValue, minutesValue, 0, 0) / 1000;
         let totalSeconds = timeInsecondsFrom - timeInseconds;
+        if (totalSeconds < 0) {
+            totalSeconds = totalSeconds + 86400;
+        }
         console.log(totalSeconds);
+        await shutdownBack(totalSeconds);
 
-    // // Create a timer that will fire after the specified amount of time.
-    // setTimeout(() => {
-    //     // When the timer fires, call the shutdown function.
-    //     console.log("shutdowne.shutdown();")
-    // }, totalSeconds * 1000);
-};
+    };
+
 }
 
+
+
+async function shutdownBack(totalSeconds) {
+    let date = new Date();
+    let time = date.getTime();
+
+    timeTill.innerHTML = `${secsToOther(totalSeconds)}`;
+
+    currentTime.innerHTML = currentTimeFormat();
+
+    shutDownTime.innerHTML = shutDownTimeFormat(totalSeconds, time);
+
+
+    let secs = 0
+    setInterval(() => {
+        secs = secs + 0.5;
+        if (secs < totalSeconds) {
+            updateProgress(convert(secs, 1, totalSeconds, 1, 100))
+            console.log({ secs });
+            // console.log({ totalSeconds });
+
+            console.log(convert(secs, 1, totalSeconds, 0, 100));
+            timeTill.innerHTML = `${secsToOther(totalSeconds - secs)}`;
+        } else {
+            // stop loop
+            clearInterval();
+            console.log("done");
+        }
+
+        date = new Date();
+        time = date.getTime();
+        currentTime.innerHTML = currentTimeFormat();
+
+    }, 500);
+}
 
 const progressBar = document.querySelector(".progress-bar");
 
 function updateProgress(percentage) {
-  progressBar.style.width = `${percentage}%`;
 
-  // Create a progress bar fill animation
-  const progressBarFill = document.createElement("div");
-  progressBarFill.classList.add("progress-bar-fill");
-  progressBarFill.style.backgroundColor = "#272639";
-  progressBarFill.style.width = "0%";
-  progressBarFill.style.height = "100%";
-  progressBarFill.style.borderRadius = "20px";
-//   progressBarFill.style.ma = "0 0 10px #171721";
+    progressBar.style.width = `${percentage}%`;
 
-  // Add the progress bar fill to the progress bar
-  progressBar.appendChild(progressBarFill);
+    // Create a progress bar fill animation
+    const progressBarFill = document.createElement("div");
+    progressBarFill.classList.add("progress-bar-fill");
+    progressBarFill.style.backgroundColor = "#272639";
+    progressBarFill.style.width = "0%";
+    progressBarFill.style.height = "100%";
+    progressBarFill.style.borderRadius = "20px";
+    //   progressBarFill.style.ma = "0 0 10px #171721";
 
-  // animate the progress bar fill in the center of the progress bar
-  progressBarFill.style.top = "0";
-  progressBarFill.style.left = "0";
-  progressBarFill.style.position = "absolute";
-  progressBarFill.style.animation = "progress-bar-fill 1s linear infinite";
+    // Add the progress bar fill to the progress bar
+    progressBar.appendChild(progressBarFill);
+
+    // animate the progress bar fill in the center of the progress bar
+    progressBarFill.style.top = "0";
+    progressBarFill.style.left = "0";
+    progressBarFill.style.position = "absolute";
+    progressBarFill.style.animation = "progress-bar-fill 1s linear infinite";
 }
 
-// progress bar fill animation
 
-// update every 1 second
-let second = 40
-setInterval(() => {
-    second++;
-    updateProgress(second);
-}, 1000);
+// usefull
+function shutDownTimeFormat(totalSeconds, time) {
 
+    return secsToOther(totalSeconds + (time / 1000));
+
+}
+
+function currentTimeFormat() {
+    let date = new Date();
+    let time = date.getTime();
+    // in 01:23:45 format
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let seconds = date.getSeconds();
+    return [hours, minutes, seconds]
+        .map(v => ('' + v).padStart(2, '0'))
+        .filter((v, i) => v !== '00' || i > 0)
+        .join(':');
+}
+
+function secsToOther(secs) {
+    let hours = Math.floor(secs / 3600);
+    let minutes = Math.floor(secs / 60) % 60;
+    let seconds = secs % 60;
+    seconds = Math.round(seconds);
+
+
+    return [hours, minutes, seconds]
+        .map(v => ('' + v).padStart(2, '0'))
+        .filter((v, i) => v !== '00' || i > 0)
+        .join(':');
+}
+
+
+function convert(num, in_min, in_max, out_min, out_max) {
+    return ((num - in_min) * (out_max - out_min) / (
+        in_max - in_min
+    ) + out_min)
+}
