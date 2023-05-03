@@ -177,6 +177,7 @@ async function shutdown() {
     tillTimeButton.style.display = 'none';
     enterButton.style.display = 'none';
 
+    let valid = true;
     let totalSeconds = 0;
     console.log({ active })
 
@@ -190,9 +191,14 @@ async function shutdown() {
         if (hoursValue == null || hoursValue == undefined || hoursValue == '') { hoursValue = 0; }
         if (minutesValue == null || minutesValue == undefined || minutesValue == '') { minutesValue = 0; }
         if (secondsValue == null || secondsValue == undefined || secondsValue == '') { secondsValue = 0; }
-        totalSeconds = (hoursValue * 60 * 60) + (minutesValue * 60) + secondsValue;
+        totalSeconds = (hoursValue * 60 * 60) + (minutesValue * 60) + parseInt(secondsValue);
         console.log(totalSeconds);
-        await shutdownBack(totalSeconds);
+        if (totalSeconds < 10) {
+            alert("Please enter a valid time");
+            valid = false;
+        } else {
+            await shutdownBack(totalSeconds);
+        }
 
     } else if (active == "atTime") {
         const now = Date.now();
@@ -211,9 +217,23 @@ async function shutdown() {
             totalSeconds = totalSeconds + 86400;
         }
         console.log(totalSeconds);
-        await shutdownBack(totalSeconds);
+        if (totalSeconds < 10) {
+            alert("Please enter a valid time");
+            valid = false;
+        } else {
+            await shutdownBack(totalSeconds);
+        }
 
     };
+
+    if (!valid) {
+        putItInMeLoading.style.display = 'none';
+        putItInMeTillTime.style.display = 'block';
+        putItInMeAtTime.style.display = 'none';
+        atTimeButton.style.display = 'block';
+        tillTimeButton.style.display = 'block';
+        enterButton.style.display = 'block';
+    }
 
 }
 
@@ -243,7 +263,7 @@ async function shutdownBack(totalSeconds) {
         } else {
             // stop loop
             clearInterval();
-            console.log("done");
+            shutdowne.shutdown();
         }
 
         date = new Date();
@@ -276,6 +296,11 @@ function updateProgress(percentage) {
     progressBarFill.style.left = "0";
     progressBarFill.style.position = "absolute";
     progressBarFill.style.animation = "progress-bar-fill 1s linear infinite";
+}
+
+
+function cansle() {
+    window.close();
 }
 
 
@@ -336,3 +361,4 @@ function convert(num, in_min, in_max, out_min, out_max) {
         in_max - in_min
     ) + out_min)
 }
+

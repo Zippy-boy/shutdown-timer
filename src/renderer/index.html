@@ -17,7 +17,10 @@
 <body>
 
     <div class="wrapper">
-        <div id="Tital">Shutdown Timer</div>
+        <div class="top">
+            <div id="Tital">Shutdown Timer</div>
+            <button id="button" onclick="cansle()">X</button>
+        </div>
         <div class="line"></div>
         <div class="main">
             <div class="container" id="topContainer">
@@ -29,7 +32,7 @@
                     time</button>
             </div>
 
-            <div id="putItInMeTillISayCumOut" style="display: none;">
+            <div id="putItInMeTillISayCumOut" style="display: block;">
                 <div class="container" id="bottom">
                     <!-- Enter button -->
                     <!-- <button class="button" id="enter" onclick="enter()">Enter</button> -->
@@ -141,7 +144,7 @@
                 </div>
             </div>
 
-            <div id="putItInMeLoading" style="display: block;">
+            <div id="putItInMeLoading" style="display: none;">
                 <div id="someData">
                     <div class="getOnTop">
                         <div class="title2">Current Time</div>
@@ -165,6 +168,8 @@
                         </div>
                     </div>
                 </div>
+                <button class="button" onclick="cansle()"
+                    id="cansle">Cancel</button>
             </div>
 
             <button class="button" id="enter" onclick="shutdown()">

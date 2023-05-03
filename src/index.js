@@ -19,6 +19,7 @@ const createWindow = () => {
       contextIsolation: false
     },
     resizable: true,
+    titleBarStyle: 'hidden',
   });
 
   // and load the index.html of the app.
@@ -27,6 +28,11 @@ const createWindow = () => {
     protocol: 'file:',
     slashes: true
   }));
+  // mainWindow.webContents.openDevTools();
+  const win = mainWindow;
+  win.on('mousedown', (e) => {
+  win.setPosition(e.clientX - win.x, e.clientY - win.y);
+});
 };
 
 
@@ -48,29 +54,29 @@ const createHelpWindow = () => {
 };
 
 const menu = Menu.buildFromTemplate([
-  {
-    role: 'fileMenu'
-  },
-  {
-    role: 'help',
-    submenu: [
-      {
-        label: 'Learn More',
-        click: createHelpWindow
-      },
-    ],
-  },
-  {
-    label: 'Developer',
-    submenu: [
-      {
-        role: 'reload'
-      },
-      {
-        role: 'toggledevtools'
-      },
-    ],
-  },
+  // {
+  //   role: 'fileMenu'
+  // },
+  // {
+  //   role: 'help',
+  //   submenu: [
+  //     {
+  //       label: 'Learn More',
+  //       click: createHelpWindow
+  //     },
+  //   ],
+  // },
+  // {
+  //   label: 'Developer',
+  //   submenu: [
+  //     {
+  //       role: 'reload'
+  //     },
+  //     {
+  //       role: 'toggledevtools'
+  //     },
+  //   ],
+  // },
 ]);
 Menu.setApplicationMenu(menu);
 
