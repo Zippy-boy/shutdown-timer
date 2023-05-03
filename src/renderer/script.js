@@ -151,12 +151,14 @@ function MKeyUpAt() {
 function tillTimeframe() {
     putItInMeAtTime.style.display = 'none';
     putItInMeTillTime.style.display = 'block';
+    putItInMeLoading.style.display = 'none';
     active = "tillTime";
 }
 
 function atTimeframe() {
     putItInMeTillTime.style.display = 'none';
     putItInMeAtTime.style.display = 'block';
+    putItInMeLoading.style.display = 'none';
     active = "atTime";
 }
 
