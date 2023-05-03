@@ -179,9 +179,11 @@ async function shutdown() {
     console.log({ active })
 
     if (active == "tillTime") {
-        let hoursValue = hours.value;
-        let minutesValue = minutes.value;
-        let secondsValue = seconds.value;
+        let hoursValue = formatNumber(hours.value);
+        let minutesValue = formatNumber(minutes.value);
+        let secondsValue = formatNumber(seconds.value);
+
+        console.log({ hoursValue, minutesValue, secondsValue })
 
         if (hoursValue == null || hoursValue == undefined || hoursValue == '') { hoursValue = 0; }
         if (minutesValue == null || minutesValue == undefined || minutesValue == '') { minutesValue = 0; }
@@ -231,10 +233,10 @@ async function shutdownBack(totalSeconds) {
         secs = secs + 0.5;
         if (secs < totalSeconds) {
             updateProgress(convert(secs, 1, totalSeconds, 1, 100))
-            console.log({ secs });
+            // console.log({ secs });
             // console.log({ totalSeconds });
 
-            console.log(convert(secs, 1, totalSeconds, 0, 100));
+            // console.log(convert(secs, 1, totalSeconds, 0, 100));
             timeTill.innerHTML = `${secsToOther(totalSeconds - secs)}`;
         } else {
             // stop loop
@@ -276,9 +278,27 @@ function updateProgress(percentage) {
 
 
 // usefull
-function shutDownTimeFormat(totalSeconds, time) {
+function formatNumber(number) {
+    if (number < 10) {
+        return "0" + number;
+    } else {
+        return number;
+    }
+}
 
-    return secsToOther(totalSeconds + (time / 1000));
+function shutDownTimeFormat(totalSeconds, time) {
+    // plus the current time in seconds to totalSeconds and then format it
+    let date = new Date();
+    let time2 = date.getTime();
+    let time3 = time2 + (totalSeconds * 1000);
+    let date2 = new Date(time3);
+    let hours = date2.getHours();
+    let minutes = date2.getMinutes();
+    let seconds = date2.getSeconds();
+    return [hours, minutes, seconds]
+        .map(v => ('' + v).padStart(2, '0'))
+        .filter((v, i) => v !== '00' || i > 0)
+        .join(':');
 
 }
 
