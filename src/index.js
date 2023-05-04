@@ -39,7 +39,7 @@ const createWindow = () => {
     protocol: 'file:',
     slashes: true
   }));
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
   electronDrag(mainWindow);
 
   ipcMain.on('minimize', () => {
