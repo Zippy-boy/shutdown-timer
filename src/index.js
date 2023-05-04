@@ -1,6 +1,7 @@
-const { app, BrowserWindow, Menu } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain } = require('electron');
 const url = require('url');
 const path = require('path');
+const electronDrag = require('electron-drag');
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -9,18 +10,27 @@ if (require('electron-squirrel-startup')) {
 
 const createWindow = () => {
   // Create the browser window.
+  // const image_path = path.join( __dirname, 'icon.png');
+  // const fs = require("fs")
+
+  // if (!fs.existsSync(image_path)) {
+  //   throw new Error("File do not exitst \n"+image_path)
+  // }
+
+  // var image = nativeImage.createFromPath(image_path);
+
   const mainWindow = new BrowserWindow({
     width: 585,
     height: 585,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
+      // preload: path.join(__dirname, 'preload.js'),
       backgroundThrottling: false,
       nodeIntegration: true,
       contextIsolation: false
     },
-    icon: 'src/icon.png',
+    // icon: image,
     resizable: false,
-    titleBarStyle: 'default',
+    titleBarStyle: 'hidden',
   });
 
   // and load the index.html of the app.
@@ -29,27 +39,14 @@ const createWindow = () => {
     protocol: 'file:',
     slashes: true
   }));
-  // mainWindow.webContents.openDevTools();
-};
+  mainWindow.webContents.openDevTools();
+  electronDrag(mainWindow);
 
-
-const createHelpWindow = () => {
-  const helpWindow = new BrowserWindow({
-    width: 350,
-    height: 400,
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
-    },
-    resizable: false,
-    titleBarStyle: 'default'
+  ipcMain.on('minimize', () => {
+    mainWindow.minimize();
   });
-
-  helpWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'renderer/help.html'),
-    protocol: 'file:',
-    slashes: true
-  }));
 };
+
 
 const menu = Menu.buildFromTemplate([
   // {

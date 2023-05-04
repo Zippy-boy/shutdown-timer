@@ -23,6 +23,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "electron-drag": "^2.0.0",
     "electron-shutdown-command": "^2.0.1",
     "electron-squirrel-startup": "^1.0.0",
     "node-shutdown-windows": "^1.0.0"

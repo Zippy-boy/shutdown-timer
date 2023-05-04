@@ -303,6 +303,11 @@ function cansle() {
     window.close();
 }
 
+const { ipcRenderer } = require('electron');
+
+function minimiz() {
+    ipcRenderer.send('minimize');
+}
 
 // usefull
 function formatNumber(number) {
@@ -362,3 +367,6 @@ function convert(num, in_min, in_max, out_min, out_max) {
     ) + out_min)
 }
 
+// const { addDraggableRegion } = require('electron-drag');
+
+// addDraggableRegion(document.querySelector('#topBar'), { dragWindow: true });
