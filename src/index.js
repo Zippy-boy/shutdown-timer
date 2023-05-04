@@ -18,6 +18,7 @@ const createWindow = () => {
       nodeIntegration: true,
       contextIsolation: false
     },
+    icon: 'src/icon.png',
     resizable: false,
     titleBarStyle: 'default',
   });
@@ -36,7 +37,6 @@ const createHelpWindow = () => {
   const helpWindow = new BrowserWindow({
     width: 350,
     height: 400,
-    icon: __dirname + 'icon.png',
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
