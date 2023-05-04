@@ -11,15 +11,15 @@ const createWindow = () => {
   // Create the browser window.
   const mainWindow = new BrowserWindow({
     width: 585,
-    height: 750,
+    height: 585,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
       backgroundThrottling: false,
       nodeIntegration: true,
       contextIsolation: false
     },
-    resizable: true,
-    titleBarStyle: 'hidden',
+    resizable: false,
+    titleBarStyle: 'default',
   });
 
   // and load the index.html of the app.
@@ -29,10 +29,6 @@ const createWindow = () => {
     slashes: true
   }));
   // mainWindow.webContents.openDevTools();
-  const win = mainWindow;
-  win.on('mousedown', (e) => {
-  win.setPosition(e.clientX - win.x, e.clientY - win.y);
-});
 };
 
 
@@ -40,10 +36,12 @@ const createHelpWindow = () => {
   const helpWindow = new BrowserWindow({
     width: 350,
     height: 400,
+    icon: __dirname + 'icon.png',
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
     resizable: false,
+    titleBarStyle: 'default'
   });
 
   helpWindow.loadURL(url.format({

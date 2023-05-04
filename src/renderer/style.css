@@ -8,10 +8,10 @@
 }
 
 :root {
-  --bg-color: #8990ec;
+  --bg-color: #a5abfe;
   --wrapper-color: #272639;
-  --acent-color: #a5abfe;
-  --result-box-color: #171721;
+  --acent-color: #d16562;
+  --result-box-color: #fff;
 }
 
 body {
@@ -44,15 +44,16 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .wrapper {
-  height: 90vh;
+  height: 85vh;
   width: 85%;
   color: white;
-  background: #272639;
+  background: var(--wrapper-color);
   border-radius: 1rem;
   padding: 1.2rem;
   padding-top: 2rem;
   margin-top: 2em;
   margin-bottom: 0;
+  border: #000 6px solid;
 }
 
 .main {
