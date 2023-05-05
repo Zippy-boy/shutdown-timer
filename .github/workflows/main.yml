@@ -1,35 +1,28 @@
-name: Build
-on: [push, pull_request]
+name: Build and Release
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
   build_on_win:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@master
-      with:
-        node-version: 14
-    - name: install dependencies
-      run: npm install
-    - name: build
-      run: npm run make
-  # upload to releases
-  upload-release-assets:
-    needs: build_on_win
-    runs-on: windows-latest
-    steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@master
-      with:
-        node-version: 14
-    - name: install dependencies
-      run: npm install
-    - name: upload release assets
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ./out/make/*
-        asset_name: ${{ github.event.release.tag_name }}.zip
-        asset_content_type: application/zip
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Install Dependencies
+        run: npm install
+      - name: Build
+        run: npm run make
+      - name: Upload Release Asset
+        uses: actions/upload-release-asset@v1
+        with:
+          asset_path: ./out/make/squirrel.windows/x64
+          asset_name: shutdown-timer-1.0.0 Setup.exe
+          asset_content_type: application/octet-stream
+          token: ${{ secrets.GITHUB_TOKEN }}
