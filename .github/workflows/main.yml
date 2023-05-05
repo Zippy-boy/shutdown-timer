@@ -13,3 +13,23 @@ jobs:
       run: npm install
     - name: build
       run: npm run make
+  # upload to releases
+  upload-release-assets:
+    needs: build_on_win
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@master
+      with:
+        node-version: 14
+    - name: install dependencies
+      run: npm install
+    - name: upload release assets
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./out/make/*
+        asset_name: ${{ github.event.release.tag_name }}.zip
+        asset_content_type: application/zip
