@@ -16,7 +16,7 @@ jobs:
   # upload to releases
   upload-release-assets:
     needs: build_on_win
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@master
