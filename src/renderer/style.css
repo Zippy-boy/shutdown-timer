@@ -4,7 +4,7 @@
     Helvetica,
     sans-serif;
   color: white;
-  font-size: .76rem;
+  font-size: .66rem;
 }
 
 :root {
@@ -15,22 +15,27 @@
 }
 
 body {
-  background: var(--bg-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* no scroll bar */
-  overflow: hidden;
-  padding: 0;
+  /* height: 85vh;
+  width: 85%; */
+  /* width: 90%; */
+  height: 90vh;
+  color: white;
+  background: var(--wrapper-color);
+  border-radius: 1rem;
+  padding: 1.2rem;
+  padding-top: 2rem;
+  /* margin-top: 2em; */
   margin: 0;
-  flex-direction: column;
+  border: #000 7px solid;
 }
 
-button, svg {
+button,
+svg {
   -webkit-app-region: no-drag;
 }
 
-button:hover, svg:hover {
+button:hover,
+svg:hover {
   cursor: pointer;
 }
 
@@ -41,6 +46,10 @@ button:hover, svg:hover {
 
   -webkit-user-select: none;
   -webkit-app-region: drag;
+}
+
+.splitButton {
+  -webkit-user-select: none;
 }
 
 ::-webkit-scrollbar {
@@ -60,18 +69,20 @@ input[type=number]::-webkit-outer-spin-button {
   margin: 0;
 }
 
-.wrapper {
+/* .wrapper {
   height: 85vh;
   width: 85%;
+  width: 90%;
+  height: 100%;
   color: white;
   background: var(--wrapper-color);
   border-radius: 1rem;
   padding: 1.2rem;
   padding-top: 2rem;
   margin-top: 2em;
-  margin-bottom: 0;
+  margin: 0;
   border: #000 6px solid;
-}
+} */
 
 .main {
   display: flex;
@@ -102,6 +113,9 @@ input[type=number]::-webkit-outer-spin-button {
   display: flex;
   margin-bottom: 0.5rem;
   font-size: 2rem;
+  /* center */
+  place-items: center;
+  
 }
 
 .title2 {
@@ -415,7 +429,7 @@ input {
   position: absolute;
   top: 0;
   right: 0; */
-  display: flex; 
+  display: flex;
 
   align-items: center;
   justify-content: right;
@@ -451,4 +465,9 @@ input {
 .close-button svg,
 .minimize-button svg {
   fill: var(--acent-color);
+}
+
+.tit {
+  display: flex;
+  justify-content: center;
 }

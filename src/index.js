@@ -20,8 +20,8 @@ const createWindow = () => {
   // var image = nativeImage.createFromPath(image_path);
 
   const mainWindow = new BrowserWindow({
-    width: 585,
-    height: 585,
+    width: 460,
+    height: 475,
     webPreferences: {
       // preload: path.join(__dirname, 'preload.js'),
       backgroundThrottling: false,
