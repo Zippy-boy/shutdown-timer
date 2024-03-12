@@ -18,6 +18,7 @@ jobs:
     
     - name: Install dependencies
       run: npm install
+    
 
     - name: Compile build
       run: npm run make # This can be whatever command you use to build your package
