@@ -1,0 +1,51 @@
+name: Build/release
+
+on: push
+
+jobs:
+  build:
+    name: Build
+    runs-on: windows-latest
+
+    steps: 
+    - name: Checkout repository
+      uses: actions/checkout@v1
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '10.x'
+    
+    - name: Install dependencies
+      run: npm install
+
+    - name: Compile build
+      run: npm run make # This can be whatever command you use to build your package
+
+    - name: Create Draft Release
+      id: create_release
+      uses: actions/create-release@v1.0.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ github.ref }}
+        release_name: Release ${{ github.ref }}
+        draft: true
+        prerelease: false
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1.0.1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: ./out/make/squirrel.windows/x64/
+        asset_name: shutdown-time-1.0.0 Setup.exe
+        asset_content_type: application/exe
+
+    - name: Publish Release
+      uses: eregon/publish-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        release_id: ${{ steps.create_release.outputs.id }}
