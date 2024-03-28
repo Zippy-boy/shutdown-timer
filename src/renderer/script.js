@@ -253,6 +253,7 @@ async function shutdownBack(totalSeconds) {
     let secs = 0
     setInterval(() => {
         secs = secs + 0.5;
+        howLong = totalSeconds - secs;
         if (secs < totalSeconds) {
             updateProgress(convert(secs, 1, totalSeconds, 1, 100))
             // console.log({ secs });
@@ -260,10 +261,13 @@ async function shutdownBack(totalSeconds) {
 
             // console.log(convert(secs, 1, totalSeconds, 0, 100));
             timeTill.innerHTML = `${secsToOther(totalSeconds - secs)}`;
-        } else {
+        }   else {
             // stop loop
             clearInterval();
             shutdowne.shutdown();
+        }   if (howLong == 30) {
+            console.log("focusWindowF");
+            ipcRenderer.send('focusWindow');
         }
 
         date = new Date();

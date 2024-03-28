@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Menu, ipcMain } = require('electron');
+const { app, BrowserWindow, Menu, ipcMain, powerSaveBlocker, powerMonitor,  } = require('electron');
 const url = require('url');
 const path = require('path');
 const electronDrag = require('electron-drag');
@@ -29,7 +29,7 @@ const createWindow = () => {
       contextIsolation: false
     },
     // icon: image,
-    resizable: false,
+    resizable: true, // SHOULD BE FALSE
     titleBarStyle: 'hidden',
   });
 
@@ -39,12 +39,24 @@ const createWindow = () => {
     protocol: 'file:',
     slashes: true
   }));
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
   electronDrag(mainWindow);
 
   ipcMain.on('minimize', () => {
     mainWindow.minimize();
   });
+
+  ipcMain.on('focusWindow', () => {
+    console.log("focusWindow")
+    // Focus the window
+    win.focus();
+    // Set the window as always on top
+    win.setAlwaysOnTop(true);
+    // Restore the window (if minimized)
+    if (win.isMinimized()) {
+        win.restore();
+    }
+  })
 };
 
 
@@ -78,7 +90,15 @@ Menu.setApplicationMenu(menu);
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
+app.on('ready', () => {
+  createWindow();
+  powerMonitor.on("lock-screen", () => {
+    powerSaveBlocker.start("prevent-display-sleep");
+  });
+  powerMonitor.on("suspend", () => {
+    powerSaveBlocker.start("prevent-app-suspension");
+  });
+});
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
